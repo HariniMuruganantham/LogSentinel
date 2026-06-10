@@ -9,7 +9,6 @@
 ![LocalStack](https://img.shields.io/badge/LocalStack-Pro-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?style=for-the-badge&logo=openai&logoColor=white)
 
-![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
 ![AWS CloudWatch](https://img.shields.io/badge/AWS-CloudWatch_Logs-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![Nginx](https://img.shields.io/badge/Nginx-Alpine-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
@@ -33,7 +32,6 @@
 - [Environment Variables](#-environment-variables)
 - [API Reference](#-api-reference)
 - [LocalStack Integration](#-localstack-integration)
-- [CI/CD Pipeline](#-cicd-pipeline)
 - [Author](#-author)
 
 ---
@@ -42,9 +40,9 @@
 
 **AiOps Log Anomaly Detective** is a full-stack AIOps project that simulates a microservice environment, ingests service logs into AWS CloudWatch (via LocalStack), detects anomalies using an Isolation Forest model, and generates human-readable incident reports using GPT-4o-mini.
 
-Built as a portfolio project to demonstrate real-world DevOps and MLOps skills — containerisation, cloud-native observability, AI-driven alerting, and CI/CD — all running locally with production-grade tooling.
+Built as a portfolio project to demonstrate real-world DevOps and MLOps skills — containerisation, cloud-native observability, and AI-driven alerting — all running locally with production-grade tooling.
 
-> **Why this project?** Most anomaly detection demos are Jupyter notebooks. This one ships with Docker Compose, GitHub Actions CI, LocalStack CloudWatch integration, and a live React dashboard — the way it would actually be built on the job.
+> **Why this project?** Most anomaly detection demos are Jupyter notebooks. This one ships with Docker Compose, LocalStack CloudWatch integration, and a live React dashboard — the way it would actually be built on the job.
 
 ---
 
@@ -96,7 +94,6 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 | **Frontend** | React 18, Vite, Nginx Alpine |
 | **Cloud Emulation** | LocalStack Pro (CloudWatch Logs, EC2) |
 | **Containerisation** | Docker, Docker Compose |
-| **CI/CD** | GitHub Actions |
 | **Observability** | AWS CloudWatch Logs |
 
 ---
@@ -111,7 +108,6 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 - **LocalStack CloudWatch** — full AWS CloudWatch Logs API emulation locally, no real AWS account needed
 - **EC2 topology** — mock EC2 instances seeded per microservice for infrastructure visualisation
 - **Multi-stage Docker builds** — production-optimised images with non-root users
-- **GitHub Actions CI** — automated build and test on every push
 
 ---
 
@@ -242,19 +238,6 @@ The project uses LocalStack Pro to emulate AWS CloudWatch Logs locally. The `scr
 - **EC2 instances**: one per microservice for topology visualisation
 
 View your resources at [app.localstack.cloud](https://app.localstack.cloud) → Resource Browser → CloudWatch Logs.
-
----
-
-## ⚙️ CI/CD Pipeline
-
-GitHub Actions workflow runs on every push to `main`:
-
-```
-push to main
-    └── build & test
-            ├── docker build (all services)
-            └── health check validation
-```
 
 ---
 
