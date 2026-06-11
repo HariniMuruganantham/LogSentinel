@@ -107,10 +107,10 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 ### LocalStack system status — EC2 and CloudWatch running
 ![LocalStack Dashboard](docs/LocalStack-Dashboard.png)
 
-### EC2 instances — 3 nodes tagged Project=aiops
+### EC2 instance
 ![LocalStack EC2](docs/LocalStack-EC2.png)
 
-### CloudWatch log group — /aiops/services
+### CloudWatch log group 
 ![CloudWatch log group](docs/Cloudwatch-loggroup.png)
 
 ### CloudWatch log streams — auth-service, inventory-api, payment-service
