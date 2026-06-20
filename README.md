@@ -1,4 +1,4 @@
-# 🔍 AiOps Log Anomaly Detective
+# LogSentinel
 
 <div align="center">
 
@@ -9,12 +9,13 @@
 ![LocalStack](https://img.shields.io/badge/LocalStack-Pro-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 ![OpenAI](https://img.shields.io/badge/OpenAI-GPT--4o--mini-412991?style=for-the-badge&logo=openai&logoColor=white)
 ![AWS CloudWatch](https://img.shields.io/badge/AWS-CloudWatch_Logs-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-black?style=for-the-badge&logo=githubactions)
 ![Nginx](https://img.shields.io/badge/Nginx-Alpine-009639?style=for-the-badge&logo=nginx&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **A production-grade AIOps portfolio project that detects anomalies in microservice logs using Isolation Forest + GPT-4o-mini, backed by LocalStack CloudWatch and a real-time React dashboard.**
 
-[Portfolio](https://harini-devops-portfolio.vercel.app) · [Report Bug](https://github.com/HariniMuruganantham/AiOps-Log-Anamoly-Detective/issues)
+[Portfolio](https://harini-devops-portfolio.vercel.app) · [Report Bug](https://github.com/HariniMuruganantham/LogSentinel/issues)
 
 </div>
 
@@ -39,11 +40,11 @@
 
 ## 🧠 Overview
 
-**AiOps Log Anomaly Detective** is a full-stack AIOps project that simulates a microservice environment, ingests service logs into AWS CloudWatch (via LocalStack), detects anomalies using an Isolation Forest model, and generates human-readable incident reports using GPT-4o-mini.
+**LogSentinel** is a full-stack AIOps project that simulates a microservice environment, ingests service logs into AWS CloudWatch (via LocalStack), detects anomalies using an Isolation Forest model, and generates human-readable incident reports using GPT-4o-mini.
 
 Built as a portfolio project to demonstrate real-world DevOps and MLOps skills — containerisation, cloud-native observability, and AI-driven alerting — all running locally with production-grade tooling.
 
-> **Why this project?** Most anomaly detection demos are Jupyter notebooks. This one ships with Docker Compose, LocalStack CloudWatch integration, EC2 instance seeding, and a live React dashboard — the way it would actually be built on the job.
+> **Why this project?** Most anomaly detection demos are Jupyter notebooks. LogSentinel ships with Docker Compose, LocalStack CloudWatch integration, EC2 instance seeding, and a live React dashboard — the way it would actually be built on the job.
 
 ---
 
@@ -71,6 +72,7 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 | **Frontend** | React 18, Vite, Nginx Alpine |
 | **Cloud Emulation** | LocalStack Pro (CloudWatch Logs, EC2) |
 | **Containerisation** | Docker, Docker Compose |
+| **CI/CD** | GitHub Actions |
 | **Observability** | AWS CloudWatch Logs |
 
 ---
@@ -83,7 +85,7 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 - **Failure propagation tracking** — RCA chaining traces how failures cascade across services and renders a visual propagation timeline
 - **Service crash simulation** — hit CRASH on any service from the dashboard; it actually degrades — latency spikes to 3–8s, error rate hits 90%, health checks fail
 - **Auto-refresh** — toggle 30-second automatic analysis polling directly from the nav bar
-- **EC2 topology panel** — mock EC2 instances seeded with `Project=aiops` tag, shown in a live infrastructure panel at the bottom of the dashboard
+- **EC2 topology panel** — mock EC2 instances seeded with `Project=logsentinel` tag, shown in a live infrastructure panel at the bottom of the dashboard
 - **LocalStack CloudWatch** — full AWS CloudWatch Logs + EC2 API emulation, inspectable in the LocalStack web console
 - **Multi-stage Docker builds** — production-optimised images, non-root users, HEALTHCHECK on every container
 
@@ -110,7 +112,7 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 ### EC2 instance
 ![LocalStack EC2](docs/LocalStack-EC2.png)
 
-### CloudWatch log group 
+### CloudWatch log group
 ![CloudWatch log group](docs/Cloudwatch-loggroup.png)
 
 ### CloudWatch log streams — auth-service, inventory-api, payment-service
@@ -124,7 +126,7 @@ Built as a portfolio project to demonstrate real-world DevOps and MLOps skills �
 ## 📁 Project Structure
 
 ```
-AiOps-Log-Anamoly-Detective/
+LogSentinel/
 ├── backend/
 │   ├── main.py               # FastAPI routes · Isolation Forest · GPT-4o-mini · EC2 helpers
 │   ├── requirements.txt
@@ -141,7 +143,7 @@ AiOps-Log-Anamoly-Detective/
 │   ├── payment/              # Flask :5002 — /health /charge /crash /recover + CloudWatch push
 │   └── inventory/            # Flask :5003 — /health /stock /crash /recover + CloudWatch push
 ├── scripts/
-│   └── init-aws.sh           # LocalStack bootstrap — log group, streams, EC2 instances (Project=aiops)
+│   └── init-aws.sh           # LocalStack bootstrap — log group, streams, EC2 instances (Project=logsentinel)
 ├── docs/
 │   ├── Log-Analyser-Arch.png
 │   └── screenshots/
@@ -171,8 +173,8 @@ AiOps-Log-Anamoly-Detective/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/HariniMuruganantham/AiOps-Log-Anamoly-Detective.git
-cd AiOps-Log-Anamoly-Detective
+git clone https://github.com/HariniMuruganantham/LogSentinel.git
+cd LogSentinel
 ```
 
 ### 2. Set up environment variables
@@ -251,11 +253,11 @@ docker compose down -v
 
 ## ☁️ LocalStack Integration
 
-The project uses LocalStack Pro to emulate AWS CloudWatch Logs and EC2 locally. The `scripts/init-aws.sh` bootstrap script runs on container startup and:
+LogSentinel uses LocalStack Pro to emulate AWS CloudWatch Logs and EC2 locally. The `scripts/init-aws.sh` bootstrap script runs on container startup and:
 
 - Creates log group `/aiops/services`
 - Creates log streams `auth-service`, `payment-service`, `inventory-api`
-- Seeds 3 EC2 instances tagged `Project=aiops`, `Service=auth/payment/inventory`
+- Seeds 3 EC2 instances tagged `Project=logsentinel`, `Service=auth/payment/inventory`
 
 The backend boto3 clients point to `http://localstack:4566` — identical AWS SDK calls to real AWS, just with `endpoint_url` overridden. All resources are visible in the [LocalStack web console](https://app.localstack.cloud) under Resource Browser.
 
@@ -263,11 +265,13 @@ The backend boto3 clients point to `http://localstack:4566` — identical AWS SD
 
 ## 👩‍💻 Author
 
-**Harini Muruganantham**  
+**Harini Muruganantham**
 Junior DevOps Engineer · AIOps Enthusiast
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-harini--devops-blue?style=flat-square&logo=vercel)](https://harini-devops-portfolio.vercel.app)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Harini-blue?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/harini-r-devops)
 [![GitHub](https://img.shields.io/badge/GitHub-HariniMuruganantham-181717?style=flat-square&logo=github)](https://github.com/HariniMuruganantham)
+[![Substack](https://img.shields.io/badge/Substack-harini--devops-FF6719?style=flat-square&logo=substack)](https://harini-devops.substack.com)
 
 ---
 
